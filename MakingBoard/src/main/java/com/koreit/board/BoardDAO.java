@@ -1,4 +1,4 @@
-package com.koreait.board;
+package com.koreit.board;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BoardDAO {
-
 	public static int insertBoard(BoardVO vo) {
 
 		Connection con = null;
@@ -21,7 +20,7 @@ public class BoardDAO {
 			ps.setString(1, vo.getTitle());
 			ps.setString(2, vo.getCtnt());
 
-			return ps.executeUpdate(); //쿼리문 실행
+			return ps.executeUpdate();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -41,50 +40,58 @@ public class BoardDAO {
 		try {
 			con = DBUtils.getCon();
 			ps = con.prepareStatement(sql);
-
+			
 			ps.setInt(1, iboard);
-
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
 				BoardVO vo = new BoardVO();
 
-				vo.setIboard(rs.getInt(iboard));
-				vo.setCtnt(rs.getString("ctnt"));
-				vo.setTitle(rs.getString("title"));
-				vo.setRegdt(rs.getString("redt"));
+				int Iboard = rs.getInt("iboard");
+				String title = rs.getString("title");
+				String ctnt = rs.getString("ctnt");
+				String regdt = rs.getString("regdt");
 
+				vo.setCtnt(ctnt);
+				vo.setIboard(Iboard);
+				vo.setRegdt(regdt);
+				vo.setTitle(title);
+				
+				return vo;
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			DBUtils.close(con, ps);
+			DBUtils.close(con, ps, rs);
 		}
 		return null;
 	}
 
-	public static List<BoardVO> SelBoardList() {
+	public static List<BoardVO> selBoardList() {
+
 		List<BoardVO> list = new ArrayList();
 
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
-		String sql = " SELECT iboard, title, regdt FROM t_board ORDER BY iboard DESC ";
+		String sql = " SELECT title, ctnt, regdt FROM t_board ORDER BY iboard DESC ";
 
 		try {
 			con = DBUtils.getCon();
 			ps = con.prepareStatement(sql);
-
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				BoardVO vo = new BoardVO();
-				list.add(vo);
 
-				vo.setIboard(rs.getInt("iboard"));
-				vo.setTitle(rs.getString("title"));
-				vo.setRegdt(rs.getString("regdt"));
+				BoardVO data = new BoardVO();
+
+				data.setTitle(rs.getString("title"));
+				data.setCtnt(rs.getString("ctnt"));
+				data.setRegdt(rs.getString("regdt"));
+
+				list.add(data);
 			}
 
 		} catch (Exception e) {
@@ -95,23 +102,22 @@ public class BoardDAO {
 		return list;
 	}
 	
-	public static int updateBoard(BoardVO param) {
+	public static int delBoard(BoardVO vo) {
+
+		Connection con = null;
+		PreparedStatement ps = null;
+
+		String sql = " DELETE FROM t_board WHERE iboard=? ";
 		
-		Connection con=null;
-		PreparedStatement ps=null;
-		
-		String sql= " UPDATE t_board SET title=? , ctnt =? WHERE iboard=? ";
 		try {
-			con=DBUtils.getCon();
-			ps=con.prepareStatement(sql);
+			con = DBUtils.getCon();
+			ps = con.prepareStatement(sql);
+
 			
-			ps.setString(1, param.getTitle());
-			ps.setString(2, param.getCtnt());
-			ps.setInt(3, param.getIboard());
+			ps.setInt(1, vo.getIboard());
 			
 			return ps.executeUpdate();
-			
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -120,21 +126,22 @@ public class BoardDAO {
 		return 0;
 	}
 	
-public static int delBoard(BoardVO param) {
+	public static int upBoard(BoardVO vo) {
+
+		Connection con = null;
+		PreparedStatement ps = null;
+
+		String sql = " UPDATE t_board SET title=? , ctnt=? WHERE iboard=? ";
 		
-		Connection con=null;
-		PreparedStatement ps=null;
-		
-		String sql= " DELETE FROM t_board WHERE iboard=? ";
 		try {
-			con=DBUtils.getCon();
-			ps=con.prepareStatement(sql);
-			
-			ps.setInt(1, param.getIboard());
+			con = DBUtils.getCon();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, vo.getTitle());
+			ps.setString(2, vo.getCtnt());
+			ps.setInt(3, vo.getIboard());
 			
 			return ps.executeUpdate();
-			
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

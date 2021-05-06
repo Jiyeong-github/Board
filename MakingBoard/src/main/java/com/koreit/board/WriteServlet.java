@@ -1,4 +1,4 @@
-package com.koreait.board;
+package com.koreit.board;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -18,12 +18,15 @@ public class WriteServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String title = request.getParameter("title");
-		String ctnt = request.getParameter("ctnt");
-
-		BoardVO vo = new BoardVO();
-		vo.setCtnt(ctnt);
+	
+		String title=request.getParameter("title");
+		String ctnt=request.getParameter("ctnt");
+		
+		BoardVO vo=new BoardVO();
+		
 		vo.setTitle(title);
+		vo.setCtnt(ctnt);
+
 		BoardDAO.insertBoard(vo);
 		response.sendRedirect("/list");
 	}

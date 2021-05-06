@@ -1,4 +1,4 @@
-package com.koreait.board;
+package com.koreit.board;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,8 +16,9 @@ public class ListServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		List<BoardVO> list=new ArrayList();
-		BoardDAO.SelBoardList();
+		List<BoardVO> list = BoardDAO.selBoardList();
+		request.setAttribute("list", list);
 		request.getRequestDispatcher("WEB-INF/jsp/list.jsp").forward(request, response);
 	}
+
 }

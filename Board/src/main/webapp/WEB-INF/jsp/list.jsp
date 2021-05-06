@@ -22,29 +22,23 @@ table, th, td {
 </head>
 <body>
 	<div>
-		<a href="/write">글쓰기</a>
+	<a href="write">글쓰기</a>
 	</div>
-	<div>
-		<table>
-			<tr>
-				<td>번호</td>
-				<td>제목</td>
-				<td>날짜</td>
-			</tr>
-
-			<c:forEach items="${list}" var="item">
-				<tr class="record" onclick="moveToDetail(${item.iboard});">
-					<td>${item.iboard }</td>
-					<td>${item.title }</td>
-					<td>${item.regdt }</td>
-				</tr>
-			</c:forEach>
-		</table>
-	</div>
+	<table>
+	<tr>
+	<th>번호</th>
+	<th>제목</th>
+	<th>작성일자</th>
+	
+	<c:forEach items="${list}" var="item" >
+	${param.iboard }
+	</c:forEach>
+	</tr>
+	</table>
 	<script>
-function moveToDetail(iboard){
-	location.href='/detail?iboar='+iboard;
-}
-</script>
+	<tr class="" onclick="moveToDeatil">
+	moveToDetail="detail?=iboard";
+	</tr>
+	</script>
 </body>
 </html>

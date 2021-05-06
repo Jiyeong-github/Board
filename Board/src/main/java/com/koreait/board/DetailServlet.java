@@ -12,14 +12,9 @@ public class DetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
  
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	String iboard=request.getParameter("iboard");
-	
-	BoardVO data=BoardDAO.selBoard(Integer.parseInt(iboard));
-	request.setAttribute("data",data);
-	
-	request.getRequestDispatcher("WEB-INF/view/deatil.jsp").forward(request, response);
+		BoardVO vo=BoardDAO.selBoard(Integer.parseInt("iboard"));
+		request.setAttribute("data", vo);
+		request.getRequestDispatcher("/WEB-INF/jsp/detail.jsp").forward(request, response);
 	}
-
-
 
 }
