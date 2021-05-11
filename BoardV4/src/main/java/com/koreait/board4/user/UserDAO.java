@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import com.koreait.board4.DBUtils;
+import com.koreait.board4.MyUtils;
 
 public class UserDAO {
 	public static int joinUser(UserVO param) {
@@ -47,23 +50,32 @@ public class UserDAO {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, param.getUid());
 			rs = ps.executeQuery();
-			
-			if (rs.next()) {
-				//아이디가 있는 경우 & 비밀번호 체크 
-				
-				String dbPw=rs.getString("upw");
-				if(dbPw.equals(param.getUpw())) {
-					return 1;
-				}else {
-					return 3;
-				}
-				
-			} else {
-				//아이디가 없는 경우
-				return 2;
-			}
+
+			// reference 변수에 대한 이해 필요
 
 			
+
+			if (rs.next()) {
+				// 아이디가 있는 경우 & 비밀번호 체크
+
+				String dbPw = rs.getString("upw");
+				if (BCrypt.checkpw(param.getUpw(), dbPw)) {
+					//dbPw.equals(param.getUpw())
+					int iuser = rs.getInt("iuser");
+					String unm = rs.getString("unm");
+
+					param.setUnm(unm);
+					param.setIuser(iuser);
+					
+					return 1;
+				} else {
+					return 3;
+				}
+
+			} else {
+				// 아이디가 없는 경우
+				return 2;
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
