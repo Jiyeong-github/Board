@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib uri="http://java.sun.com/jstl/core" %>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +15,8 @@
 		<a href="write"><button>글쓰기</button></a>
 	</div>
 	<div>리스트</div>
-
+	
+	<div>
 	<table>
 		<tr>
 			<th>번호</th>
@@ -23,15 +24,21 @@
 			<th>이름</th>
 			<th>날짜</th>
 		</tr>
-
-		<c:forEach items="${list}" var="item">
-		<tr>
+	
+	<c:forEach var="item" items="${list}" >
+		<tr onclick="moveToDetail(${item.iboard})">
 		<td>${item.iboard }</td>
 		<td>${item.title }</td>
 		<td>${itme.unm }</td>
 		<td>${item.regdt }</td>
 		</tr>
-</c:forEach>
+	</c:forEach>
 	</table>
+	</div>
+	<script>
+	function moveToDetail(iboard){
+		location.href='/board/detail?iboard='+iboard;
+	}
+	</script>
 </body>
 </html>

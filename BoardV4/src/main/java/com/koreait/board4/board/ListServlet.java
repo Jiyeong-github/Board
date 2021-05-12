@@ -26,14 +26,16 @@ public class ListServlet extends HttpServlet {
 		// 안 되면 로그인 화면으로 이동
 		// set한 적 없는데 get하면 null로 나옴
 
-		if (loginUser == null) {
+		if (loginUser == null) {//로그아웃 상태면 로그인 페이지로 이동
 			response.sendRedirect("/user/login");
 			return;
 		}
 		
 		List<BoardVO> list=BoardDAO.selBoardList();
-		request.setAttribute(getServletName(), loginUser);
-
+		request.setAttribute("list", list);
+		
+		
+		//로그인했으면 board/list.jsp 파일 응답
 		MyUtils.openJSP("board/list", request, response);
 		
 //		Boolean loginSuccess = (Boolean) hs.getAttribute("loginSucces");

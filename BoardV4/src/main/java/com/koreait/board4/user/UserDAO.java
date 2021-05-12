@@ -54,7 +54,6 @@ public class UserDAO {
 			// reference 변수에 대한 이해 필요
 
 			
-
 			if (rs.next()) {
 				// 아이디가 있는 경우 & 비밀번호 체크
 
