@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
 		if (result == 1) {// 로그인 성공
 			HttpSession hs = request.getSession();
 			vo.setUpw(null);
-			hs.setAttribute("loginUser", vo);
+			hs.setAttribute("loginUser", vo); //왼쪽이 key 값
 			// vo가 가리키는 UserVO 객체는 (iuser, uid, unm 값만 담고 있음)
 			response.sendRedirect("/board/list");
 			return;
