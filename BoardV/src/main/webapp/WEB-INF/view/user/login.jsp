@@ -8,6 +8,7 @@
 </head>
 <body>
 <div>${errMSG}</div>
+<div><a href="join">회원가입</a></div>
 <div>
 <form action="login" method="post">
 <div><input type="text" name="uid" placeholder="id"></div>

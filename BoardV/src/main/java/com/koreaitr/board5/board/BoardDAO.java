@@ -36,14 +36,14 @@ public class BoardDAO {
 		return 0;
 	}
 
-	public static BoardVO selBoard(int iboard) {
-
+	public static BoardVO selBoard(int iboard) {  //(BoardVO param)
+		//BoardVO result = null;
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
 		String sql = "  SELECT A.iboard, A.title, A.regdt, B.unm, A.iuser, A.ctnt " + " FROM t_board A "
-				+ "	LEFT JOIN t_user B " + " ON A.iuser = B.iuser " + " WHERE iboard =  ";
+				+ "	LEFT JOIN t_user B " + " ON A.iuser = B.iuser " + " WHERE iboard = ? ";
 
 		try {
 			con = DBUtils.getCon();
@@ -62,7 +62,6 @@ public class BoardDAO {
 				String ctnt = rs.getString("ctnt");
 				int iuser = rs.getInt("iuser");
 				
-				
 				BoardVO vo = new BoardVO();
 				vo.setIboard(iboard);
 				vo.setTitle(title);
@@ -70,7 +69,7 @@ public class BoardDAO {
 				vo.setCtnt(ctnt);
 				vo.setUnm(unm);
 				vo.setIuser(iuser);
-
+				
 				return vo;
 			}
 
@@ -93,8 +92,9 @@ public class BoardDAO {
 		ResultSet rs = null;
 
 		String sql = "  SELECT A.iboard, A.title, A.regdt, A.iuser, B.unm " + " FROM t_board A "
-				+ "	LEFT JOIN t_user B " + " ON A.iuser = B.iuser " + " ORDER BY A.iboard DESC ";
-
+				+ "	INNER JOIN t_user B " + " ON A.iuser = B.iuser " + " ORDER BY A.iboard DESC ";
+		//SQL문은 안에 있등가 말등가 상관 없음
+		
 		try {
 			con = DBUtils.getCon();
 			ps = con.prepareStatement(sql);

@@ -1,0 +1,12 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+
+.record {
+	cursor: pointer;
+}
+
+.record:hover {
+	background-color: #1abc9c;
+}

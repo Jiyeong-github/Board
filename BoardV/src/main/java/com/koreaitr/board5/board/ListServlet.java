@@ -30,7 +30,7 @@ public class ListServlet extends HttpServlet {
 
 		List<BoardVO> list = BoardDAO.selBoardList();
 		request.setAttribute("list", list);
-
+//한 방에 끝내는 법 : request.setAttribute("list",BoardDAO.selBoardList());
 		MyUtils.openJSP("board/list", request, response);
 
 	}

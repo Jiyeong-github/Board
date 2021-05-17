@@ -7,6 +7,16 @@
 <title>수정</title>
 </head>
 <body>
-
+<div>
+<form action = "mod" method="post">
+<div><input type = "hidden" name="iboard" value="${param.iboard}"></div>
+	<div><input type="text" name="title" placeholder="제목"></div>
+	<div><textarea name="ctnt" placeholder="내용"></textarea></div>
+	<div>
+	<input type="submit" value="글쓰기">
+	<input type="reset" value="초기화">
+	</div>
+</form>
+</div>
 </body>
 </html>

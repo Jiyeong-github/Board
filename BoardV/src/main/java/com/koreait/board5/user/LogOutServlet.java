@@ -15,7 +15,9 @@ public class LogOutServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		HttpSession hs = request.getSession();
-		hs.invalidate();
+		hs.invalidate(); // 전체 삭제
+		// hs.setAttribute("loginUser", null); 부분 삭제
+		// hs.removeAttribute(""); 이것도 전체삭제
 		response.sendRedirect("login");
 	}
 

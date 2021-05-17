@@ -12,17 +12,18 @@ import com.koreait.board5.MyUtils;
 @WebServlet("/board/del")
 public class DelServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-     
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-			BoardVO vo=new BoardVO();
-			int iuser = MyUtils.getLoginUserPK(request);
-			
-			vo.setIuser(iuser);
-			vo.setIboard();
-			
-			MyUtils.openJSP("board/del", request, response);
-		
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		BoardVO vo = new BoardVO();
+		int iuser = MyUtils.getLoginUserPK(request);
+		int iboard = MyUtils.getParamInt("iboard", request);
+		vo.setIuser(iuser);
+		vo.setIboard(iboard);
+
+		MyUtils.openJSP("board/del", request, response);
+
 	}
 
 }
