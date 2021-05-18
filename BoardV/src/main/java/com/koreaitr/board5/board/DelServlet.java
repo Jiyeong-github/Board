@@ -21,8 +21,9 @@ public class DelServlet extends HttpServlet {
 		int iboard = MyUtils.getParamInt("iboard", request);
 		vo.setIuser(iuser);
 		vo.setIboard(iboard);
-
-		MyUtils.openJSP("board/del", request, response);
+		BoardDAO.delBoard(vo);
+		
+		response.sendRedirect("list");
 
 	}
 

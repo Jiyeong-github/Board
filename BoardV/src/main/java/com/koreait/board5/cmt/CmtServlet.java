@@ -25,6 +25,7 @@ public class CmtServlet extends HttpServlet {
 		param.setIuser(iuser);
 
 		CmtDAO.delCmt(param);
+		CmtDAO.upCmt(param);
 
 		response.sendRedirect("detail?iboard=" + iboard);
 	}
@@ -34,14 +35,20 @@ public class CmtServlet extends HttpServlet {
 		String cmt = request.getParameter("regCmt");
 		int iboard = MyUtils.getParamInt("iboard", request);
 		int iuser = MyUtils.getLoginUserPK(request);
+		int icmt = MyUtils.getParamInt("icmt", request);
 
 		CmtVO param = new CmtVO();
-		param.setIboard(iboard);
 		param.setCmt(cmt);
 		param.setIuser(iuser);
-
-		CmtDAO.insCmt(param);
-
+		
+		if (icmt != 0) {
+			param.setIcmt(icmt);
+			CmtDAO.upCmt(param);
+		} else {
+			param.setIboard(iboard);
+			CmtDAO.insCmt(param);
+		}
+		
 		response.sendRedirect("detail?iboard=" + iboard);
 	}
 

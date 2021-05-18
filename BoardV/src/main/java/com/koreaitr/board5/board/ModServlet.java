@@ -15,7 +15,7 @@ public class ModServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		MyUtils.openJSP("/board/mod", request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

@@ -130,7 +130,7 @@ public class BoardDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 
-		String sql = " DELETE FROM t_board WHERE iboard = ? AND iuser = ?";
+		String sql = " DELETE FROM t_board WHERE iboard = ? AND iuser = ? ";
 
 		try {
 			con = DBUtils.getCon();

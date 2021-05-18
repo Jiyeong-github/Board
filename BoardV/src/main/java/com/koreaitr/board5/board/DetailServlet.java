@@ -18,10 +18,10 @@ public class DetailServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		int iboard = MyUtils.getParamInt("iboard", request);
-		BoardVO data = BoardDAO.selBoard(iboard);
-		request.setAttribute("data", data);
+		BoardVO data = BoardDAO.selBoard(iboard); 
+		request.setAttribute("data", data); //글의 정보
 
-		request.setAttribute("cmtList", CmtDAO.selCmtList(iboard));
+		request.setAttribute("cmtList", CmtDAO.selCmtList(iboard)); //댓글 리스트 정보
 		MyUtils.openJSP("board/detail", request, response);
 	}
 

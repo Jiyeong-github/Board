@@ -6,7 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>디테일</title>
-<script defer src = "/res/JS/detail.js"></script>
+<style>
+.hidden {
+	display: none;
+}
+</style>
+<script defer src="/res/JS/detail.js?ver=6"></script>
 </head>
 <body>
 	<h1>디테일 페이지</h1>
@@ -20,12 +25,24 @@
 	<div>내용:${data.ctnt }</div>
 
 	<h3>댓글</h3>
+	<div>${requestScope.data.iboard },${param.iboard}</div>
 	<div>
-		<form action="regCmt" method="post">
-			<input type="hidden" name="iboard" value="${data.iboard }">
+		<form id="insFrm" action="regCmt" method="post">
+			<input type="hidden" name="icmt" value="0"> <input
+				type="hidden" name="iboard" value="${requestScope.data.iboard }">
 			<div>
 				<textarea name="regCmt" placeholder="댓글 내용"></textarea>
 				<input type="submit" value="댓글 작성">
+			</div>
+		</form>
+
+		<form id="updFrm" action="regCmt" method="post" class="hidden">
+			<input type="hidden" name="icmt" value="0"> <input
+				type="hidden" name="iboard" value="${requestScope.data.iboard }">
+			<div>
+				<textarea name="regCmt" placeholder="댓글 내용"></textarea>
+				<input type="submit" value="댓글 수정"> <input type="button"
+					value="수정 취소" onclick="showInsFrm()">
 			</div>
 		</form>
 	</div>
@@ -46,22 +63,19 @@
 
 					<td><c:if
 							test="${item.iuser == sessionScope.loginUser.iuser }">
-							<input type="button" value="수정">
-							<!-- <a href="mod"><button type="button">수정</button></a>-->
-							<a
-								href="regCmt?icmt=${item.icmt }&iboard=${requestScope.data.iboard}">
-								<button
-									onclick="delCmt(${requestScope.data.iboard},${item.icmt})">삭제</button>
-							</a>
+							<!-- <input type="button" value="수정">-->
+							<button onclick="updCmt(${item.icmt},'${item.cmt.trim()}');">수정</button>
+							<button
+								onclick="delCmt(${requestScope.data.iboard},${item.icmt})">삭제</button>
+							<!-- <a href="regCmt?icmt=${item.icmt }&iboard=${requestScope.data.iboard}"></a> -->
 							<!-- userPK값을 절대로 jsp에서 받으면 안 됨, 이건 무조건 servlet -->
 						</c:if></td>
 				</tr>
 			</c:forEach>
 		</table>
 	</div>
-
 	<!-- 쿼리값을 가져올 때 param을 쓴다 -->
-	<c:if test=" ${data.iuser  == loginUser.iuser}">
+	<c:if test="${data.iuser eq loginUser.iuser}">
 		<div>
 			<a href="/board/del?iboard=${param.iboard }">삭제</a>
 		</div>
