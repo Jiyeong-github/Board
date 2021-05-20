@@ -6,6 +6,7 @@ public class BoardVO {
 	private String ctnt;
 	private String regdt;
 	private String unm;
+	private int isFav;
 	private int iuser;
 
 	public int getIboard() {
@@ -54,5 +55,13 @@ public class BoardVO {
 
 	public void setIuser(int iuser) {
 		this.iuser = iuser;
+	}
+
+	public int getIsFav() {
+		return isFav;
+	}
+
+	public void setIsFav(int isFav) {
+		this.isFav = isFav;
 	}
 }

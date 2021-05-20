@@ -18,6 +18,7 @@ function updCmt(icmt, cmt) {
 	updFrm.icmt.value = icmt;
 	updFrm.regCmt.value = cmt;
 	//이름 맞추기 젭알젭알.. regCmt 젭알.. 
+	//위에 처럼 아이디값만 적어도 되긴 하는데 굳이 추천하진 않으니 위에 변수 선언 ㄱ(변수도 기능 안에 적는 게 나음)
 	insFrm.className = 'hidden';
 	updFrm.className = '';
 }

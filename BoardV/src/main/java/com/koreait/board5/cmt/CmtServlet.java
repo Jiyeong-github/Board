@@ -36,15 +36,17 @@ public class CmtServlet extends HttpServlet {
 		int iboard = MyUtils.getParamInt("iboard", request);
 		int iuser = MyUtils.getLoginUserPK(request);
 		int icmt = MyUtils.getParamInt("icmt", request);
+		//detail.jsp에서 0이 넘어오면 등록, 아니면 ?
 
 		CmtVO param = new CmtVO();
 		param.setCmt(cmt);
 		param.setIuser(iuser);
+		//iuser는 등록(값 넣기위해) 수정(해당 사용자가 맞는지) 시 반드시 넣기
 		
-		if (icmt != 0) {
+		if (icmt != 0) { //수정
 			param.setIcmt(icmt);
 			CmtDAO.upCmt(param);
-		} else {
+		} else { //등록
 			param.setIboard(iboard);
 			CmtDAO.insCmt(param);
 		}

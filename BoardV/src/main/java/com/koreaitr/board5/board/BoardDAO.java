@@ -36,21 +36,25 @@ public class BoardDAO {
 		return 0;
 	}
 
-	public static BoardVO selBoard(int iboard) {  //(BoardVO param)
+	public static BoardVO selBoard(BoardVO param) {  //(int iboard)
 		//BoardVO result = null;
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
-		String sql = "  SELECT A.iboard, A.title, A.regdt, B.unm, A.iuser, A.ctnt " + " FROM t_board A "
-				+ "	LEFT JOIN t_user B " + " ON A.iuser = B.iuser " + " WHERE iboard = ? ";
+		String sql = " SELECT B.unm, A.iboard, A.title, A.ctnt, A.iuser, A.regdt "
+				+" ,if(C.iboard IS NULL, 0, 1) AS isFav "
+				+" FROM t_board A  INNER JOIN t_user B "
+				+" ON A.iuser = B.iuser LEFT JOIN t_board_fav C "
+				+" ON A.iboard = C.iboard AND C.iuser = ? WHERE A.iboard = ? ";
+				
 
 		try {
 			con = DBUtils.getCon();
 			ps = con.prepareStatement(sql);
-			
-			ps.setInt(1, iboard);
-			
+			ps.setInt(1,param.getIuser());
+			ps.setInt(2, param.getIboard());
+			//parameter로 받았단 뜻은 set이나 get을 했단 말
 			rs = ps.executeQuery();
 			
 			
@@ -61,6 +65,8 @@ public class BoardDAO {
 				String unm = rs.getString("unm");
 				String ctnt = rs.getString("ctnt");
 				int iuser = rs.getInt("iuser");
+				int iboard = rs.getInt("iboard");
+				int isfav = rs.getInt("isFav");
 				
 				BoardVO vo = new BoardVO();
 				vo.setIboard(iboard);
@@ -69,6 +75,7 @@ public class BoardDAO {
 				vo.setCtnt(ctnt);
 				vo.setUnm(unm);
 				vo.setIuser(iuser);
+				vo.setIsFav(isfav);
 				
 				return vo;
 			}
@@ -93,8 +100,8 @@ public class BoardDAO {
 
 		String sql = "  SELECT A.iboard, A.title, A.regdt, A.iuser, B.unm " + " FROM t_board A "
 				+ "	INNER JOIN t_user B " + " ON A.iuser = B.iuser " + " ORDER BY A.iboard DESC ";
-		//SQL문은 안에 있등가 말등가 상관 없음
-		
+		// SQL문은 안에 있등가 말등가 상관 없음
+
 		try {
 			con = DBUtils.getCon();
 			ps = con.prepareStatement(sql);

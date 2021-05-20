@@ -6,10 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>디테일</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <style>
-.hidden {
-	display: none;
-}
+.hidden {display: none;}
+.fa-heart{color:red;}
 </style>
 <script defer src="/res/JS/detail.js?ver=6"></script>
 </head>
@@ -19,7 +19,13 @@
 	<div>
 		<a href="list">리스트로 돌아가기</a>
 	</div>
-	<div>제목:${data.title }</div>
+	<div>제목:${requestScope.data.title }</div>
+	<c:if test="${data.isFav eq 0}">
+	<a href="fav?iboard=${param.iboard }&fav=1"><i class="far fa-heart"></i></a>
+	</c:if>
+	<c:if test="${data.isFav == 1}">
+	<a href="fav?iboard=${param.iboard }&fav=0"><i class="fas fa-heart"></i></a>
+	</c:if>
 	<div>작성자:${data.unm }</div>
 	<div>작성일:${data.regdt }</div>
 	<div>내용:${data.ctnt }</div>
@@ -65,6 +71,7 @@
 							test="${item.iuser == sessionScope.loginUser.iuser }">
 							<!-- <input type="button" value="수정">-->
 							<button onclick="updCmt(${item.icmt},'${item.cmt.trim()}');">수정</button>
+							<!-- ''안 붙이면 변수로 인식 -->
 							<button
 								onclick="delCmt(${requestScope.data.iboard},${item.icmt})">삭제</button>
 							<!-- <a href="regCmt?icmt=${item.icmt }&iboard=${requestScope.data.iboard}"></a> -->
