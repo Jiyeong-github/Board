@@ -35,17 +35,12 @@ function join(){
 			unm: unm,
 			gender: gender
 	}
-	
 	// param이나 param2 방법 둘다 가능 var param 2 = { uid, upw, unm, gender };
 	ajax(param);
-}
-</script>
-
-	<script>
-
+	
 function ajax(param){
 	const init = {
-			method = 'POST',
+			method : 'POST',
 		/*	headers : {
 				'Content-Type':'application/json',
 			}, */

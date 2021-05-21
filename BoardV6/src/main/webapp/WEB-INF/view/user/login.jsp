@@ -18,10 +18,4 @@
 			<input type="submit" value="login">
 		</div>
 	</form>
-
-	<input type="button" value="회원가입" onclick="join();">
-	<div>
-		<a href="join"></a>
-	</div>
-
 </div>
