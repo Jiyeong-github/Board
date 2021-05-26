@@ -1,35 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<div><a href="#" onclick="goBack();">돌아가기</a></div>
+<!-- javascript:history.back();이나 .go(-1)해도 뒤로가기 -->
 
-<div>${param.iboard }</div>
+<h1>${requestScope.data.title}</h1>
+<div>글번호 : ${requestScope.data.iboard}</div>
+<div>작성자 : <c:out value="${requestScope.data.writerNm}"/> | 작성일 : ${requestScope.data.regdt}</div>
+<div><c:out value="${requestScope.data.ctnt}"/></div>
 <div>
-	<a href="#">돌아가기</a>
-	<!-- javascript:history.back();이나 .go(-1)해도 뒤로가기 -->
-</div>
-<div>제목:${requestScope.data.title }</div>
-<div>작성자:${data.unm }</div>
-<div>작성일:${data.regdt }</div>
-<div>내용:${data.ctnt }</div>
-<div>
-	<c:out value="${requestScope.data.ctnt}" />
-</div>
-
-
-<div>
-	<form id="cmtFrm" data-login_user_pk = "${sessionScope.loginUser.iuser}" data-iboaerd="${param.iboard}" onsubmit="return false;">
-		<input type="text" id="cmt"> 
-		<input type="button" value="덧글달기" onclick="regCmt();">
+	<form id="cmtFrm" data-login_user_pk="${sessionScope.loginUser.iuser}" data-iboard="${param.iboard}" onsubmit="return false;">
+		<input type="text" id="cmt">
+		<input type="button" value="댓글달기" onclick="regCmt();">
 	</form>
 </div>
 <div id="cmtList"></div>
 
-<table>
-<tr>
-<th>내용</th>
-<th>작성자</th>
-<th>내용</th>
-<th>내용</th>
-</tr>
-</table>
+<c:if test="${not empty sessionScope.loginUser}">
+	<div>
+		<form id="cmtFrm" onsubmit="return false;">
+			<input type="text" id="cmt">
+			<input type="button" value="댓글달기" onclick="regCmt();">
+		</form>
+	</div>
+</c:if>
+<div id="cmtList" data-login_user_pk="${sessionScope.loginUser.iuser}" data-iboard="${param.iboard}"></div>
+
 <script src="/res/js/detail.js"></script>

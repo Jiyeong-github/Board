@@ -1,3 +1,3 @@
-function moveToDetail(iboard){
-	location.href='detail?iboard='+iboard;
+function moveToDetail(iboard) {
+	location.href = 'detail?iboard=' + iboard;
 }

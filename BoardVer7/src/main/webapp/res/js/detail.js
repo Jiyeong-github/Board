@@ -1,10 +1,11 @@
 var cmtFrmElem = document.querySelector('#cmtFrm');
+var cmtListElem = document.querySelector('#cmtList');
 
 function regCmt() {
 
 	var cmtVal = cmtFrmElem.cmt.value;
 	var param = {
-		iboard: CmtFrmElem.dataset.iboard,
+		iboard: cmtListElem.dataset.iboard,
 		cmt:cmtVal};
 		regAjax(param);
 }
@@ -37,7 +38,7 @@ function regAjax(param) {
 
 //서버에게 댓글 리스트 자료 달라고 요청하는 함수
 function getListAjax(){
-	var iboard = cmtFrmElem.dataset.iboard;
+	var iboard = cmtListElem.dataset.iboard;
 	
 	fetch('cmtInsSel?iboard='+iboard)
 	.then(function(res){
@@ -51,8 +52,8 @@ function getListAjax(){
 }
 
 function makeCmtElementList(data){
-	var cmtListElem = document.querySelector('#cmtList');
-	cmtListElem.innerText = '';
+
+	cmtListElem.innerHTML = '';
 	var tableElem = document.createElement('table');
 	var trElemTitle = document.createElement('tr');
 	var thElemCtnt = document.createElement('th');
@@ -62,9 +63,9 @@ function makeCmtElementList(data){
 	//append만 써도 ㄱㅊ 유연함
 	
 	thElemCtnt.innerText = '내용';
-	thElemCtnt.innerText = '작성자';
-	thElemCtnt.innerText = '작성일';
-	thElemCtnt.innerText = '비고';
+	thElemWriter.innerText = '작성자';
+	thElemRedgt.innerText = '작성일';
+	thElemBigo.innerText = '비고';
 	
 	trElemTitle.append(thElemCtnt);
 	trElemTitle.append(thElemWriter);
@@ -74,7 +75,7 @@ function makeCmtElementList(data){
 	tableElem.append(trElemTitle);
 	cmtListElem.append(tableElem);
 	
-	var login_user_pk = cmtFrmElem.dataset.loginUserPk;
+	var loginUserPk = cmtListElem.dataset.login_user_pk;
 	
 	data.forEach(function(item){
 		var trElemCtnt = document.createElement('tr');
@@ -98,7 +99,7 @@ function makeCmtElementList(data){
 			});
 			
 			delBtn.innerText = '삭제';
-			modBtn.value = '수정';
+			modBtn.innerText = '수정';
 			
 			tdElem4.append(delBtn);
 			tdElem4.append(modBtn);
@@ -107,6 +108,7 @@ function makeCmtElementList(data){
 		trElemCtnt.append(tdElem1);
 		trElemCtnt.append(tdElem2);
 		trElemCtnt.append(tdElem3);
+		trElemCtnt.append(tdElem4);
 		
 		tableElem.append(trElemCtnt);
 		})//콜백함수를 보내는 것
