@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.koreait.board4.user.UserDAO;
-import com.koreait.board4.user.UserVO;
+import org.mindrot.jbcrypt.BCrypt;
+
 import com.koreait.board7.MyUtils;
 
 @WebServlet("/user/login")
@@ -32,7 +32,6 @@ public class UserLoginServlet extends HttpServlet {
 		UserEntity param = new UserEntity();
 		param.setUid(uid);
 		param.setUpw(upw);
-		
 		UserEntity result = UserDAO.selUser(param); // 빼내서 쓸 거다
 
 		if (result == null) {// 아이디 없음
