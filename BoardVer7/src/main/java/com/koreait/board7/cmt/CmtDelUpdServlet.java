@@ -33,7 +33,12 @@ public class CmtDelUpdServlet extends HttpServlet {
 
 	//댓글 수정
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		
+		int icmt = MyUtils.getParamInt("icmt", request);
+		String cmt = request.getParameter("cmt");
+		
+		System.out.println("icmt:"+icmt);
+		System.out.println("cmt:"+cmt);
 		
 	}
 

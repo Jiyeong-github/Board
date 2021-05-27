@@ -7,7 +7,8 @@ public class UserEntity {
 	private String unm;
 	private int gender;
 	private String regdt;
-
+	private String profileImg;
+	
 	public int getIuser() {
 		return iuser;
 	}
@@ -54,6 +55,14 @@ public class UserEntity {
 
 	public void setRegdt(String regdt) {
 		this.regdt = regdt;
+	}
+
+	public String getProfileImg() {
+		return profileImg;
+	}
+
+	public void setProfileImg(String profileImg) {
+		this.profileImg = profileImg;
 	}
 
 }

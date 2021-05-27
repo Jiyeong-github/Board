@@ -16,6 +16,10 @@ public class UserLogoutServlet extends HttpServlet {
 		HttpSession hs = request.getSession();
 		hs.invalidate();
 		
-		
+		String referer = request.getHeader("referer"); 
+    	System.out.println("referer : " + referer);
+    	//그냥 로그아웃 누르면 페이지 가만히있고 로그아웃되는거임 ㅇㅇㅇ
+
+    	response.sendRedirect(referer);
 	}
 }

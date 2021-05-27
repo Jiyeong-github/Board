@@ -45,7 +45,7 @@
 			<c:when
 				test="${page eq param.cPage || (empty param.cPage && page eq 1)}">
 				<span class="colorRed">${page}</span>
-			</c:when>
+			</c:when> <!-- 임마는 else가 있다 -->
 			<c:otherwise>
 				<span><a href="list?cPage=${page}&searchType=${param.searchType}
 				&searchText=${param.searchText}">${page}</a></span>

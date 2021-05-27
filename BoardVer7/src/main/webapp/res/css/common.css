@@ -17,3 +17,4 @@ section{ padding-left : 40px; padding-right: 40px;}
 .colorRed {
 	color: red;
 }
+.displayNone{display:none !important;} /*important 주면 얘가 우선순위 됨*/

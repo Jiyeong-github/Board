@@ -11,14 +11,14 @@ import com.koreait.board7.DBUtils;
 public class BoardDAO {
 
 	public static int selPagingCnt(BoardDTO param) {
-
-		int result = 0;
+		//페이지 나누는 거 (1,2페이지로 나눈다)
+		int result = 0; //게시글에 따른 페이지를 나누기 위해
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append(" SELECT CEIL(COUNT(iboard)/?) ")
+		sb.append(" SELECT CEIL(COUNT(iboard)/?)")
 		.append(" FROM t_board A ")
 		.append(" INNER JOIN t_user B ")
 		.append(" ON A.iuser = B.iuser ");
@@ -33,7 +33,7 @@ public class BoardDAO {
 			.append(param.getSearchText())
 			.append("%' OR A.ctnt LIKE '%")
 			.append(param.getSearchText())
-			.append("%'");
+			.append("%' ");
 			break;
 		case 2: //제목
 			sb.append("A.title LIKE '%")
@@ -53,15 +53,19 @@ public class BoardDAO {
 		}
 		
 	//String sql = " SELECT CEIL(COUNT(iboard) / ?) FROM t_board ";
-
+		//아무 값이나 안 들어오면 0이니까 switch문 안 돌린다
+		//
 		try {
 			con = DBUtils.getCon();
 			ps = con.prepareStatement(sb.toString());
 			ps.setInt(1, param.getRecordCnt());
+			//recordCnt 레코드카운트
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
 				result = rs.getInt(1);
+				//rs.getInt("CEIL(COUNT(iboard)/?)")라고 넣어도 됨
+				//DB에 나오는 영향받은 행 1
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -69,7 +73,7 @@ public class BoardDAO {
 			DBUtils.close(con, ps, rs);
 		}
 
-		return 0;
+		return result;
 
 	}
 

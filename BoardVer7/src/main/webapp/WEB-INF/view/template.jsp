@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,21 +13,22 @@
 	<header>
 		<nav>
 			<ul>
-			<c:if test="${not empty sessionScope.loginUser}">
-				<li><a href="/user/login">로그인</a><li>
-			</c:if>
-			<c:if test="${not empty sessionScope.logoutUser}">
-				<li><a href="/user/logout">로그아웃</a></li>
-				<li><a href="/board/write">글쓰기</a></li>
-				<li><a href="/board/favoritelist">좋아요</a></li>
-			</c:if>
-				<li>로그인</li>
+				<c:if test="${empty sessionScope.loginUser}">
+					<li><a href="/user/login">로그인</a>
+					<li>
+				</c:if>
+				<c:if test="${not empty sessionScope.loginUser}">
+					<li><a href="/user/logout">로그아웃</a></li>
+					<li><a href="/board/write">글쓰기</a></li>
+					<li><a href="/board/favoritelist">좋아요</a></li>
+					<li><a href="/user/mypage">마이페이지</a></li>
+				</c:if>
 				<li><a href="/board/list">리스트</a></li>
 			</ul>
 		</nav>
-		<section>
-			<jsp:include page="/WEB-INF/view/${requestScope.jsp}.jsp"></jsp:include>
-		</section>
 	</header>
+	<section>
+		<jsp:include page="/WEB-INF/view/${requestScope.jsp}.jsp"></jsp:include>
+	</section>
 </body>
 </html>

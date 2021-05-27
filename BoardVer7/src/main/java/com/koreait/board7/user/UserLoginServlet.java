@@ -31,12 +31,13 @@ public class UserLoginServlet extends HttpServlet {
 
 		UserEntity param = new UserEntity();
 		param.setUid(uid);
-		param.setUpw(upw);
+
 		UserEntity result = UserDAO.selUser(param); // 빼내서 쓸 거다
 
 		if (result == null) {// 아이디 없음
 			request.setAttribute("errMsg", "아이디를 확인해주세요");
-		}else if(BCrypt.checkpw(upw,result.getUpw())) {
+		}else if(BCrypt.checkpw(upw, result.getUpw())) {
+			//아이디 있음&비밀번호 체크 성공
 			result.setUpw(null);
 			HttpSession hs = request.getSession();
 			hs.setAttribute("loginUser", result);

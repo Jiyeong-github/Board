@@ -26,10 +26,10 @@ function idChkAjax(uid){
 		console.log(myJson);
 		switch(myJson.result){
 			case '0':
-			chkUidElem.innerText = '사용 가능';
+			chkUidResultElem.innerText = '사용 가능';
 			break;
 			case  '1':
-			chkUidElem.innerText = '사용 뷸가능';
+			chkUidResultElem.innerText = '사용 뷸가능';
 			break;
 		}
 	});
@@ -51,13 +51,13 @@ function frmChk() {
 
 	var upwVal = upwElem.value;
 	var chkUpwVal = chkUpwElem.value;
-	var unmVal = unmElem.value;
+	// var unmVal = unmElem.value;
 	//비밀번호 미작성시 alert "비밀번호를 작성해 주세요" return false
 	//3자 이하면 alert "비밀번호는 4자 이상 작성해 주세요" return false
 	//비밀번호와 확인 비번이 다를 때 "비밀번호를 확인해 주세요" return false
 
 
-	if (upwVal.length <=3) {
+	if (upwVal.length <3) {
 		if (upwVal.length == 0) {
 			alert('비밀번호를 작성해 주세요');
 		} else {
@@ -67,7 +67,7 @@ function frmChk() {
 	} else if (upwVal !== chkUpwVal) {
 		alert('비밀번호를 확인해주세요');
 		return false;
-	} if (unmVal.length < 2) { //.value해줘야 스트링값을 가져옴
+	} if (unmElem.value.length < 2) { //.value해줘야 스트링값을 가져옴
 		alert('이름은 2자 이상 작성해 주세요');
 		return false;
 	}

@@ -16,10 +16,10 @@ public class UserJoinServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		request.setAttribute("title", "회원가입");
+	/*	request.setAttribute("title", "회원가입");
 		request.setAttribute("page", "user/join");
 		String jsp = "/WEB-INF/view/template.jsp";
-		request.getRequestDispatcher(jsp).forward(request, response);
+		request.getRequestDispatcher(jsp).forward(request, response); */
 		MyUtils.openJSP("회원가입", "user/join", request, response);
 	}
 

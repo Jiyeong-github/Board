@@ -12,14 +12,13 @@ import com.koreait.board7.user. UserEntity;
 
 public class MyUtils {
 	public static  UserEntity getLoginUser(HttpServletRequest req) {
-		if (req == null) {
-			return null;
-		}
+		if (req == null) {return null;}
 		HttpSession hs = req.getSession();
 		return (UserEntity) hs.getAttribute("loginUser");
 	}
 
 	public static int getLoginUserPK(HttpServletRequest req) {
+		if(req == null) {return 0;}
 		return getLoginUser(req).getIuser();
 	}
 
