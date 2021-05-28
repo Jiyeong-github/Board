@@ -15,25 +15,35 @@
 	<c:forEach items="${requestScope.list}" var="item">
 		<tr class="record" onclick="moveToDetail(${item.iboard});">
 			<td>${item.iboard }</td>
-			<td>
-			<c:choose>
-			<c:when test="${param.searchType eq 1||param.searchType eq 2 }">
+			<td><c:choose>
+					<c:when test="${param.searchType eq 1||param.searchType eq 2 }">
 			${item.title.replace(param.searchText, '<mark>' += param.searchText += '</mark>') }
 			</c:when>
-			<c:otherwise>
+					<c:otherwise>
 			${item.title }
 			</c:otherwise>
-			</c:choose>
-			</td><td>
+				</c:choose></td>
+
 			<c:choose>
-			<c:when test="${param.searchType eq 4}">
+				<c:when test="${empty item.profileImg }">
+					<c:set var="img" value="/res/img/noprofile.jpg" />
+				</c:when>
+				<c:otherwise>
+					<c:set var="img"
+						value="/res/img/user/${item.iuser}/${item.profileImg}" />
+				</c:otherwise>
+			</c:choose>
+
+			<td><c:choose>
+					<c:when test="${param.searchType eq 4}">
 			${item.writerNm.replace(param.searchText, '<mark>'+= param.searchText +='</mark>') }
 			</c:when>
-			<c:otherwise>
+					<c:otherwise>
 			${item.writerNm }
-			</c:otherwise>
-			</c:choose>
-			</td>
+					</c:otherwise>
+				</c:choose> 
+				<img src="${img}" class="profileImg">
+				</td>
 			<td>${item.regdt}</td>
 		</tr>
 	</c:forEach>
@@ -45,9 +55,10 @@
 			<c:when
 				test="${page eq param.cPage || (empty param.cPage && page eq 1)}">
 				<span class="colorRed">${page}</span>
-			</c:when> <!-- 임마는 else가 있다 -->
+			</c:when>
 			<c:otherwise>
-				<span><a href="list?cPage=${page}&searchType=${param.searchType}
+				<span><a
+					href="list?cPage=${page}&searchType=${param.searchType}
 				&searchText=${param.searchText}">${page}</a></span>
 			</c:otherwise>
 		</c:choose>
@@ -62,11 +73,10 @@
 				<option value="2" ${param.searchType == 2 ? 'selected':''}>제목</option>
 				<option value="3" ${param.searchType == 3 ? 'selected':''}>내용</option>
 				<option value="4" ${param.searchType == 4 ? 'selected':''}>글쓴이</option>
-			</select> 
-			<input type="search" name="searchText" value="${param.searchText}">
+			</select> <input type="search" name="searchText" value="${param.searchText}">
 			<input type="submit" value="검색">
 		</div>
 	</form>
 </div>
 
-<script src = "/res/js/list.js"></script>
+<script src="/res/js/list.js"></script>

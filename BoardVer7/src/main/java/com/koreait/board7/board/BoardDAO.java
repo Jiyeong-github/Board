@@ -10,6 +10,29 @@ import com.koreait.board7.DBUtils;
 
 public class BoardDAO {
 
+	public static void insBoard(BoardEntity param) {
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		String sql = " INSERT INTO t_board(title, ctnt) VALUE(?,?) ";
+		
+		try {
+			con = DBUtils.getCon();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, param.getTitle());
+			ps.setString(2, param.getCtnt());
+			
+			ps.executeQuery();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBUtils.close(con, ps);
+		}
+	}
+	
+	
 	public static int selPagingCnt(BoardDTO param) {
 		//페이지 나누는 거 (1,2페이지로 나눈다)
 		int result = 0; //게시글에 따른 페이지를 나누기 위해
@@ -85,7 +108,8 @@ public class BoardDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
-		String sql = "  SELECT A.iboard, A.title, A.regdt, A.iuser, B.unm as writerNm" 
+		String sql = "  SELECT A.iboard, A.title, A.regdt, A.iuser, "
+				+ " B.unm as writerNm, B.profileImg " 
 		+ " FROM t_board A " + " INNER JOIN t_user B " 
 		+ " ON A.iuser = B.iuser ";
 		// SQL문은 안에 있등가 말등가 상관 없음
@@ -124,6 +148,7 @@ public class BoardDAO {
 				String writerNm = rs.getString("writerNm");
 				int iuser = rs.getInt("iuser");
 				int iboard = rs.getInt("iboard");
+				String profileImg = rs.getString("profileImg");
 
 				BoardDomain vo = new BoardDomain();
 				vo.setIboard(iboard);
@@ -131,6 +156,7 @@ public class BoardDAO {
 				vo.setRegdt(regdt);
 				vo.setWriterNm(writerNm);
 				vo.setIuser(iuser);
+				vo.setProfileImg(profileImg);
 
 				list.add(vo);
 			}

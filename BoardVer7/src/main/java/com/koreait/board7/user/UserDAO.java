@@ -8,28 +8,28 @@ import com.koreait.board7.user.UserEntity;
 import com.koreait.board7.DBUtils;
 
 public class UserDAO {
-	//아이디가 있으면 1 리턴, 없으면 0 리턴
+	// 아이디가 있으면 1 리턴, 없으면 0 리턴
 	public static int selIdChk(String uid) {
-		
+
 		int result = 0;
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		
+
 		String sql = " SELECT uid FROM t_user WHERE uid = ? ";
-		
+
 		try {
 			con = DBUtils.getCon();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, uid.trim()); //trim()은 양 옆 빈칸을 없애주는 것
-			rs= ps.executeQuery();
-			
-			if(rs.next()) {
+			ps.setString(1, uid.trim()); // trim()은 양 옆 빈칸을 없애주는 것
+			rs = ps.executeQuery();
+
+			if (rs.next()) {
 				result = 1;
 			} else {
 				result = 0;
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -37,7 +37,7 @@ public class UserDAO {
 		}
 		return result;
 	}
-	
+
 	public static UserEntity selUser(UserEntity param) {
 
 		Connection con = null;
@@ -52,9 +52,9 @@ public class UserDAO {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, param.getUid());
 			rs = ps.executeQuery();
-			
-			if(rs.next()) {
-				
+
+			if (rs.next()) {
+
 				int iuser = rs.getInt("iuser");
 				String uid = rs.getString("uid");
 				String upw = rs.getString("upw");
@@ -76,4 +76,37 @@ public class UserDAO {
 		}
 		return result;
 	}
+
+	public static int updUser(UserEntity param) {
+
+		Connection con = null;
+		PreparedStatement ps = null;
+		String updString = null;
+		
+		String sql = " UPDATE t_user SET ";
+
+		if (param.getUpw() != null && param.getUpw().equals("")) {
+			sql += " upw = ? ";
+			updString = param.getUpw();
+		} else if (param.getProfileImg() != null && !param.getProfileImg().equals("")) {
+			sql += " profileImg = ? ";
+			updString = param.getProfileImg();
+		}
+		sql += " WHERE iuser = ? ";
+		
+		try {
+			con = DBUtils.getCon(); 
+			ps = con.prepareStatement(sql);
+			
+			ps.setString(1,updString);
+			ps.setInt(2, param.getIuser());
+			return ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		} finally {
+			DBUtils.close(con, ps);
+		}
+	}
+
 }
