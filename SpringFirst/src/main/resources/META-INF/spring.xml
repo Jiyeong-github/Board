@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="mitv" class="com.spring.first.MiTv">
+	<property name="speaker" ref="speaker"></property>
+	</bean>
+		
+	<bean id="speaker" class="com.spring.first.SonySpeaker">
+	<constructor-arg value="30"></constructor-arg>
+	</bean>
+</beans>
+
+
+<!-- 	<bean id="mitv" class="com.spring.first.MiTv" scope="prototype"
+		lazy-init="true"></bean> -->
+
+<!--	<bean id="appleSpeaker" class="com.spring.first.AppleSpeaker">
+		<constructor-arg value="30" ref="appleSpeaker"></constructor-arg>
+		</bean>  -->
+
